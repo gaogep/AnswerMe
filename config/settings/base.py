@@ -74,6 +74,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "rest_framework",
     "django_celery_beat",
+    "sorl.thumbnail",
 ]
 
 LOCAL_APPS = [
@@ -212,6 +213,12 @@ X_FRAME_OPTIONS = "DENY"
 EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend"
 )
+EMAIL_HOST = env('DJANGO_EMAIL_HOST')
+EMAIL_USE_TLS = env('DJANGO_EMAIL_USE_TLS', default=True)
+EMAIL_PORT = env('DJANGO_EMAIL_PORT', default=465)
+EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('DJANGO_EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL')
 # https://docs.djangoproject.com/en/2.2/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
 
@@ -259,7 +266,7 @@ CELERY_BROKER_URL = env("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-accept_content
 CELERY_ACCEPT_CONTENT = ["json", "msgpack"]  # 指定接收任务的类型
-# http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-task_serializer
+# http://docs.celeryproject.org/en/latest/usergu ide/configuration.html#std:setting-task_serializer
 CELERY_TASK_SERIALIZER = "msgpack"
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_serializer
 CELERY_RESULT_SERIALIZER = "json"
@@ -288,3 +295,6 @@ SOCIALACCOUNT_ADAPTER = "app01.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+# https://django-compressor.readthedocs.io/en/latest/quickstart/#installation
+INSTALLED_APPS += ['compressor']
+STATICFILES_FINDERS += ['compressor.finders.CompressorFinder']

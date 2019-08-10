@@ -331,3 +331,4 @@ app01/media/
 .env
 .envs/*
 *.lock
+.idea/
